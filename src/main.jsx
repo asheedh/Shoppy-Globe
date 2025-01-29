@@ -12,6 +12,8 @@ import ProductList from './components/ProductList.jsx';
 const Cart = lazy(() => import("./components/Cart.jsx"));
 const ProductDetails = lazy(() => import("./components/ProductDetails.jsx"));
 const CheckOutPage = lazy(() => import("./components/CheckOutPage.jsx"));
+const Login = lazy(() => import ("./components/Login.jsx"));
+const Register = lazy(() => import ("./components/Register.jsx"))
 
 const appRoutes = createBrowserRouter([
   {
@@ -23,6 +25,22 @@ const appRoutes = createBrowserRouter([
         element: <ProductList />,
       },
       {
+        path: "/register",
+        element: (
+          <Suspense fallback={<div>Loading Checkout Page...</div>}>
+            <Register />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/login",
+        element: (
+          <Suspense fallback={<div>Loading Checkout Page...</div>}>
+            <Login />
+          </Suspense>
+        ),
+      },
+      {
         path: "/cart",
         element: (
           <Suspense fallback={<div>Loading Cart...</div>}>
@@ -31,7 +49,7 @@ const appRoutes = createBrowserRouter([
         ),
       },
       {
-        path: "/product/:id",
+        path: "/product/:_id",
         element: (
           <Suspense fallback={<div>Loading Product Details...</div>}>
             <ProductDetails />

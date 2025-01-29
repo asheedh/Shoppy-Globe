@@ -59,7 +59,7 @@ function CheckOutPage() {
                 
                 {cartItems.length > 0 ? (
                     cartItems.map(item => (
-                        <div key={item.id} className="checkout-item">
+                        <div key={item._id} className="checkout-item">
                             <div id = "div1">
                                 <img src={ item.thumbnail } alt={item.title} />
                                 <span> <b>{item.title}  &#215; {item.quantity} </b> </span>

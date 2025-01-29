@@ -18,16 +18,16 @@ function CartItems({ item }) {
         <>
         <div className="cartItem">
             <img
-                src={item.thumbnail }
-                alt={item.title }
+                src={item.images[0] }
+                alt={item.ItemName }
             />  
             
             <div className="item-details">
-                <h3>{item.title }</h3>
-                <p>Price: ₹ {(item.price * 80).toFixed(2)}</p>
-                <p> Rating: {(item.rating)}</p>
+                <h3>{item.ItemName }</h3>
+                <p>Price: ₹ {item.price}</p>
+                <p> Rating: {item.rating}</p>
                 <p>No.of Items : {count} </p>
-                <p> Total Price: {(count * item.price * 80).toFixed(2)}</p>
+                <p> Total Price: {count * item.price }</p>
             </div>
 
             <div className="btn">
@@ -46,12 +46,13 @@ function CartItems({ item }) {
 // PropType validation for better debugging
 CartItems.propTypes = {
     item: PropTypes.shape({
-        thumbnail: PropTypes.string,
-        title: PropTypes.string,
-        rating: PropTypes.number,
-        price: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-        quantity: PropTypes.number,
-    }).isRequired,
+            quantity: PropTypes.number.isRequired,
+            ItemName: PropTypes.string.isRequired,
+            price: PropTypes.number.isRequired,
+            category: PropTypes.string.isRequired,
+            images: PropTypes.array.isRequired,
+            rating: PropTypes.number.isRequired,
+        }).isRequired
 };
 
 export default CartItems;

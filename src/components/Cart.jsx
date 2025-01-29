@@ -26,7 +26,7 @@ function Cart() {
             <div className="cart_Items">
                 {/* Mapping through cartItems and rendering CartItem component for each item */}
                 {cartItems.map((item) => (
-                    <CartItem key={item.id} item={item} />
+                    <CartItem key={item._id} item={item} />
                 ))}
             </div>
 

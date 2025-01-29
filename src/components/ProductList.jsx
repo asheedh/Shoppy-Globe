@@ -5,25 +5,26 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 function ProductList() {
-  const { searchItem } = useOutletContext();  // using useOutletContext for search operation 
-  const { data, error, loading } = useFetch("https://dummyjson.com/products");
+  const { searchItem } = useOutletContext();  // ✅ Using context for search
+  const { data, error, loading } = useFetch("http://localhost:5100/api/products");
 
-  const searchResults = data?.products?.filter(
+  // ✅ Ensure data.products is always an array
+  const searchResults = (data?.products || []).filter(
     (product) =>
       searchItem === "" ||
-      product.title.toLowerCase().includes(searchItem.toLowerCase()) ||
-      product.price.toString().includes(searchItem) ||
-      product.category.toLowerCase().includes(searchItem.toLowerCase())
+      product?.ItemName?.toLowerCase().includes(searchItem?.toLowerCase()) || // ✅ Fixed field name
+      product?.price?.toString().includes(searchItem) ||
+      product?.category?.toLowerCase().includes(searchItem?.toLowerCase())
   );
 
   if (loading) return <p className="extra"><FontAwesomeIcon icon={faSpinner} /> Loading...</p>;
-  if (error) return <p className="extra">Error: {error.message}</p>;
+  if (error) return <p className="extra">Error: {error?.message || "Something went wrong."}</p>; // ✅ Fixed error handling
 
   return (
     <div className="ProductList">
-      {searchResults?.length > 0 ? (
+      {searchResults.length > 0 ? (
         searchResults.map((product) => (
-          <ProductItem key={product.id} details={product} />
+          <ProductItem key={product._id} details={product} />
         ))
       ) : (
         <p>No products found.</p>
